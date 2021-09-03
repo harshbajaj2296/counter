@@ -1,41 +1,63 @@
-import React,{useState,useEffect} from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [count, setCount] = useState(1);
+  const [minCount, setMinCount] = useState(1);
+  const [maxCount, setMaxCount] = useState(1000);
 
-   const [count,setCount]=useState(1);
+  const handleIncrement = () => {
+    if (count < maxCount) setCount((prevCount) => prevCount + 1);
+  };
 
-
-   useEffect(()=>{
-     if(count>1000)
-     {
-       setCount(1000);
-     }
-   },[count]);
-
-   const handleIncrement=()=>{
-    if(count<1000)
-    setCount(prevCount=>prevCount+1);
-   }
-
-   const handleDecrement=()=>{
-     
-     setCount(prevCount=>prevCount-1);
-   }
+  const handleDecrement = () => {
+    if (count > minCount) setCount((prevCount) => prevCount - 1);
+  };
 
   return (
     <div className="App">
       <div className="div-style">
-      <button className="decrement-button" onClick={handleDecrement}> <strong>-</strong> </button>
+        <button className="decrement-button" onClick={handleDecrement}>
+          <strong>-</strong>
+        </button>
       </div>
       <div className="div-style">
-      <input className="counter" value={count} onChange={(e)=>e.target.value.length ? setCount(parseInt(e.target.value)):setCount(e.target.value)}></input>
+        <input
+          className="counter"
+          value={count}
+          onChange={(e) =>
+            e.target.value.length
+              && setCount(maxCount>parseInt(e.target.value)?parseInt(e.target.value):maxCount)
+          }
+        ></input>
       </div>
       <div className="div-style">
-      <button className="increment-button" onClick={handleIncrement}> <strong>+</strong> </button>
+        <button className="increment-button" onClick={handleIncrement}>
+          <strong>+</strong>
+        </button>
       </div>
-
-      
+      <br />
+      <div className="div-style">
+        Min Counter:
+        <input
+          className="counter"
+          value={minCount}
+          onChange={(e) =>
+            e.target.value.length && setMinCount(parseInt(e.target.value))
+          }
+        ></input>
+      </div>
+      <br />
+      <div className="div-style">
+        Max Counter:
+        <input
+          className="counter"
+          value={maxCount}
+          onChange={(e) =>
+            e.target.value.length && setMaxCount(parseInt(e.target.value))
+          }
+        ></input>
+      </div>
     </div>
   );
 }

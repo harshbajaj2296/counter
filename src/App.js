@@ -27,7 +27,12 @@ function App() {
           value={count}
           onChange={(e) =>
             e.target.value.length
-              && setCount(maxCount>parseInt(e.target.value)?parseInt(e.target.value):maxCount)
+              ? setCount(
+                  maxCount > parseInt(e.target.value)
+                    ? parseInt(e.target.value)
+                    : maxCount
+                )
+              : setCount(e.target.value)
           }
         ></input>
       </div>
@@ -43,7 +48,9 @@ function App() {
           className="counter"
           value={minCount}
           onChange={(e) =>
-            e.target.value.length && setMinCount(parseInt(e.target.value))
+            e.target.value.length
+              ? setMinCount(parseInt(e.target.value))
+              : setMinCount(e.target.value)
           }
         ></input>
       </div>
@@ -54,7 +61,9 @@ function App() {
           className="counter"
           value={maxCount}
           onChange={(e) =>
-            e.target.value.length && setMaxCount(parseInt(e.target.value))
+            e.target.value.length
+              ? setMaxCount(parseInt(e.target.value))
+              : setMaxCount(e.target.value)
           }
         ></input>
       </div>
